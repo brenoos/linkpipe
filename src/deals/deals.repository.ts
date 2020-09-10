@@ -8,11 +8,15 @@ import { InsertDealDto } from './dto/insertDeal.dto';
 export class DealsRepository {
   constructor(@InjectModel(Deal.name) private dealModel: Model<Deal>) {}
 
-  async insert({ date, total_value }: InsertDealDto) {
+  async insert({ date, total_value }: InsertDealDto): Promise<Deal> {
     return this.dealModel.updateOne(
       { date },
       { $inc: { total_value } },
       { upsert: true },
     );
+  }
+
+  async listAll(): Promise<Deal[]> {
+    return this.dealModel.find({});
   }
 }

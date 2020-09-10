@@ -9,4 +9,8 @@ export class DealsService {
   async store(payload: InsertDealDto) {
     return this.dealsRepository.insert(payload);
   }
+
+  async index() {
+    return this.dealsRepository.listAll();
+  }
 }
