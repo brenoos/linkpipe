@@ -7,7 +7,13 @@ import * as qs from 'qs';
 @Injectable()
 export class PipedriveService {
   async dealWon(dealPayload: DealDto): Promise<void> {
-    const { person_name, update_time, value } = dealPayload;
+    const {
+      person_name,
+      update_time,
+      value,
+      title,
+      products_count,
+    } = dealPayload;
 
     const builder = new xml2js.Builder();
     const objToXML = {
@@ -19,13 +25,14 @@ export class PipedriveService {
         itens: {
           item: {
             codigo: 1,
-            descricao: 'Playstation 4',
-            qtde: 1,
+            descricao: title,
+            qtde: products_count,
             vlr_unit: value,
           },
         },
       },
     };
+
     const xml = builder.buildObject(objToXML);
     const response = await axios.post(
       'https://bling.com.br/Api/v2/pedido/json/&apikey=c8bd2edf82dac52364e2ab77b4c05bdb488bf71ce0e342fe00df9ec7601cc9854b59c09b',

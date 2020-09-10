@@ -4,4 +4,5 @@ export class DealDto {
   value: number;
   update_time: string;
   person_name: string;
+  products_count: number;
 }
