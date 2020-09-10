@@ -11,5 +11,6 @@ import { Deal, DealSchema } from './deals.schema';
   ],
   controllers: [DealsController],
   providers: [DealsService, DealsRepository],
+  exports: [DealsService],
 })
 export class DealsModule {}
