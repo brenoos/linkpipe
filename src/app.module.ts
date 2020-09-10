@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { PipedriveModule } from './pipedrive/pipedrive.module';
 import { DealsModule } from './deals/deals.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+
+const configService = new ConfigService();
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     PipedriveModule,
     DealsModule,
-    MongooseModule.forRoot(
-      'mongodb+srv://pipeuser:fDrUahaJLAVbcULZ@cluster0.z7yke.mongodb.net/linkpipe?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(configService.get('DATABASE_DNS')),
   ],
   controllers: [AppController],
   providers: [AppService],

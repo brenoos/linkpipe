@@ -5,9 +5,13 @@ import * as xml2js from 'xml2js';
 import axios from 'axios';
 import * as qs from 'qs';
 import { DealsService } from 'src/deals/deals.service';
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class PipedriveService {
-  constructor(private readonly dealsService: DealsService) {}
+  constructor(
+    private readonly dealsService: DealsService,
+    private readonly configService: ConfigService,
+  ) {}
 
   async dealWon(dealPayload: DealDto): Promise<void> {
     const {
@@ -41,7 +45,9 @@ export class PipedriveService {
     const xml = builder.buildObject(objToXML);
 
     const { data } = await axios.post(
-      'https://bling.com.br/Api/v2/pedido/json/&apikey=c8bd2edf82dac52364e2ab77b4c05bdb488bf71ce0e342fe00df9ec7601cc9854b59c09b',
+      `https://bling.com.br/Api/v2/pedido/json/&apikey=${this.configService.get(
+        'API_KEY',
+      )}`,
       qs.stringify({ xml }),
     );
 
