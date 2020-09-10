@@ -7,7 +7,7 @@ export class PipedriveController {
 
   @Post()
   postbackDeal(@Body() body) {
-    if (body.current.status === 'won') console.log(body);
-    return this.pipedriveService.dealWon(body.current);
+    if (body.current.status === 'won')
+      return this.pipedriveService.dealWon(body.current);
   }
 }
