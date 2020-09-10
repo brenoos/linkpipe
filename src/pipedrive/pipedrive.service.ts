@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DealDto } from './dto/deal.dto';
+import { DealDto } from '../deals/dto/deal.dto';
 import { format } from 'date-fns';
 import * as xml2js from 'xml2js';
 import axios from 'axios';
